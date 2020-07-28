@@ -1,0 +1,42 @@
+{
+    "AWSEBDockerrunVersion": 2,
+    "containerDefinitions": [
+        {
+            "name": "client",
+            "image":"jaredzhang09/multi-client",
+            "hostname":"client",
+            "memory":128,
+            "essential":false
+        },
+        {
+            "name": "server",
+            "image":"jaredzhang09/multi-server",
+            "hostname":"api",
+            "memory":128,
+            "essential":false
+        },
+        {
+            "name": "worker",
+            "image":"jaredzhang09/multi-worker",
+            "memory":128,
+            "hostname": "worker",
+            "essential":false
+        },
+        {
+            "name": "nginx",
+            "image":"jaredzhang09/multi-nginx",
+            "memory":128,
+            "hostname": "nginx",
+            "essential":true,
+            "portMappings": [
+                {
+                    "hostPort": 80,
+                    "containerPort": 80
+                }
+            ],
+            "links": [
+                "client", "server"
+            ]
+        }
+    ]
+}
